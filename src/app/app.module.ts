@@ -15,9 +15,11 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { AddShoppingItemComponent } from './component/add-shopping-item/add-shopping-item.component';
+import { EditShoppingItemComponent } from './component/edit-shopping-item/edit-shopping-item.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, DashboardComponent, AddShoppingItemComponent, EditShoppingItemComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(environment.firebase),CommonModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

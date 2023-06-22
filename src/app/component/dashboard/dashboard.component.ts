@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Student } from 'src/app/model/student';
+import { ShoppingItem } from 'src/app/model/shopping-item';
 import { AuthService } from 'src/app/shared/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
@@ -10,33 +10,30 @@ import { DataService } from 'src/app/shared/data.service';
 })
 export class DashboardComponent  implements OnInit {
 
-  studentList : Student[] = [];
-  studentObj: Student = {
+  shoppingList : ShoppingItem[] = [];
+  shoppingItem: ShoppingItem = {
     id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    mobile: ''
+    itemName: '',
+    itemNumber: 0,
   }
-  id: string = '';
-  first_name: string = '';
-  last_name: string = '';
-  email: string = '';
-  mobile: string = '';
+
+  id:  string = '';
+  itemName: string = '';
+  itemNumber: number = 0;
 
   constructor(private auth: AuthService, private data: DataService) { }
 
   ngOnInit() {
-    this.getAllStudents();
+    this.getAllItem();
   }
 
   register() {
     this.auth.logout();
   }
 
-  getAllStudents(){
-    this.data.getAllStudents().subscribe(res => {
-      this.studentList = res.map((e: any) => {
+  getAllItem(){
+    this.data.getAllShoppingItems().subscribe(res => {
+      this.shoppingList = res.map((e: any) => {
         const data = e.payload.doc.data();
         data.id = e.payload.doc.id;
         return data;
@@ -48,39 +45,34 @@ export class DashboardComponent  implements OnInit {
 
   resetForm(){
     this.id = '';
-    this.first_name = '';
-    this.last_name = '';
-    this.email = '';
-    this.mobile = '';
-
+    this.itemName = '';
+    this.itemNumber = 0;
   }
 
-  addStudent(){
+  addItem(){
 
-    if(this.first_name == '' || this.last_name == '' || this.email == '' || this.mobile == ''){
+    if(this.itemName == '' || this.itemNumber == 0){
       alert('You must supply all field to complete.');
       return;
     }
 
-    this.studentObj.id = '';
-    this.studentObj.email = this.email;
-    this.studentObj.firstName = this.first_name;
-    this.studentObj.lastName = this.last_name;
-    this.studentObj.mobile = this.mobile;
+    this.shoppingItem.id = '';
+    this.shoppingItem.itemName= this.itemName;
+    this.shoppingItem.itemNumber = this.itemNumber;
 
-    this.data.addStudent(this.studentObj);
+    this.data.addShoppingItem(this.shoppingItem);
 
     this.resetForm();
 
   }
 
-  updateStudent(student:Student){
-    this.data.updateStudent(student);
+  updateItem(item:ShoppingItem){
+    this.data.updateShoppingItem(item);
   }
 
-  deleteStudent(student:Student){
-    if (window.confirm('Are you sure you want to delete '+student.firstName+' '+student.lastName+ ' ?')){
-      this.data.deleteStudent(student);
+  deleteItem(item:ShoppingItem){
+    if (window.confirm('Are you sure you want to delete '+item.itemName+' '+item.itemNumber+' ?')){
+      this.data.deleteShoppingItem(item);
     }
   }
 
