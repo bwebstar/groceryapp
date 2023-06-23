@@ -19,7 +19,7 @@ export class DataService {
     }
 
   deleteShoppingItem(shoppingItem:ShoppingItem){
-    return this.afs.doc('/ShoppingItem'+shoppingItem.id).delete();
+    return this.afs.doc('/ShoppingItem/'+shoppingItem.id).delete();
     }
 
   updateShoppingItem(shoppingItem:ShoppingItem){
